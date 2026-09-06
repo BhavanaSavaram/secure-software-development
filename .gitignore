@@ -1,0 +1,10 @@
+target/
+*.class
+*.p12
+*.jks
+.env
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Secure-Access-Report.docx
