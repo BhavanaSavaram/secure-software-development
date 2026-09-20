@@ -6,12 +6,12 @@ const helmet = require("helmet");
 /**
  * Per-request CSP nonce + strict Content-Security-Policy.
  *
- * Design choices (see docs/MITIGATIONS.md for the full rationale):
+ * Design choices (see Project-2-Report.pdf for the full rationale):
  *  - default-src 'self'            deny-by-default for every fetch type
  *  - script-src 'self' 'nonce-…'   only our own files or a nonce-tagged
  *                                  inline <script> may run — NOT 'unsafe-inline',
  *                                  NOT 'unsafe-eval'. This alone blocks the
- *                                  attacker payloads in docs/VULNERABILITIES.md,
+ *                                  attacker payloads in Project-2-Report.pdf,
  *                                  even if an escaping bug ever let markup
  *                                  through again (defense in depth).
  *  - object-src 'none'             blocks Flash/plugin-based injection vectors

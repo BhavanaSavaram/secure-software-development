@@ -20,7 +20,7 @@ function createApp() {
 
   // --- Vulnerable side: no CSP, no output encoding, eval-based endpoints.
   // Mounted first and with no security middleware, deliberately, so the
-  // exploits in docs/VULNERABILITIES.md work exactly as described.
+  // exploits in Project-2-Report.pdf work exactly as described.
   app.use("/vulnerable", vulnerableRouter);
   app.use(
     "/vulnerable",

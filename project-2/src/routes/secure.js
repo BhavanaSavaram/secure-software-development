@@ -2,8 +2,8 @@
 
 /**
  * Mitigated counterparts of src/routes/vulnerable.js. Each handler fixes
- * exactly one vulnerability from docs/VULNERABILITIES.md; see
- * docs/MITIGATIONS.md for the reasoning behind each fix.
+ * exactly one vulnerability described in Project-2-Report.pdf; see
+ * that report for the reasoning behind each fix.
  */
 
 const express = require("express");

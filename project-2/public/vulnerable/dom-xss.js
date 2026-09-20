@@ -1,7 +1,7 @@
 "use strict";
 
 // DOM-based XSS sink: untrusted data (the URL) flows into innerHTML with
-// no sanitization. See docs/VULNERABILITIES.md for the exploit walkthrough
+// no sanitization. See Project-2-Report.pdf for the exploit walkthrough
 // and public/secure/dom-safe.js for the fix.
 (function () {
   const params = new URLSearchParams(window.location.search);

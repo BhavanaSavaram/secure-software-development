@@ -25,7 +25,7 @@
   </div>
 
   <!--
-    Two layers of defense, see dom-safe.js and docs/MITIGATIONS.md:
+    Two layers of defense, see dom-safe.js and Project-2-Report.pdf:
       1. textContent instead of innerHTML for the plain-text echo — the
          browser never parses the value as markup at all.
       2. DOMPurify.sanitize() for the one place we DO want to render HTML

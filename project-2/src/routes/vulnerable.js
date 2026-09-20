@@ -6,7 +6,7 @@
  * Everything in this file exists to be exploited by the tests in
  * tests/xss.test.js and tests/eval.test.js, and to be contrasted with the
  * fixed versions in src/routes/secure.js. Do not copy these patterns into
- * real applications. See docs/VULNERABILITIES.md for the write-up.
+ * real applications. See Project-2-Report.pdf for the write-up.
  */
 
 const express = require("express");

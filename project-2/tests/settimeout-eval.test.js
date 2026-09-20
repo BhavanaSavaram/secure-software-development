@@ -9,8 +9,8 @@
  * real DOM (jsdom), not the default Node test environment.
  *
  * Mirrors public/vulnerable/dynamic-timer.js vs.
- * public/secure/dynamic-timer-safe.js; see docs/VULNERABILITIES.md and
- * docs/MITIGATIONS.md.
+ * public/secure/dynamic-timer-safe.js; see Project-2-Report.pdf
+ * for the full write-up.
  */
 
 const { JSDOM } = require("jsdom");

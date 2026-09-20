@@ -3,8 +3,8 @@
 /**
  * Verifies the client-side (DOM-based) XSS sink used in
  * public/vulnerable/dom-xss.js vs. the fix in public/secure/dom-safe.js,
- * using a real DOM (jsdom) instead of the browser. See docs/VULNERABILITIES.md
- * and docs/MITIGATIONS.md; manual browser verification steps are in README.md.
+ * using a real DOM (jsdom) instead of the browser. See Project-2-Report.pdf;
+ * manual browser verification steps are in README.md.
  */
 
 const { JSDOM } = require("jsdom");
