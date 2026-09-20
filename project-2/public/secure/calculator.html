@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secure Calculator (eval() fixed)</title>
+  <link rel="stylesheet" href="/shared/styles.css" />
+</head>
+<body>
+  <div class="card">
+    <span class="badge secure">Secure</span>
+    <h1>Calculator</h1>
+    <p class="hint">
+      Same feature as <code>/vulnerable/calculator.html</code>, mitigated.
+      The server parses the expression with a small hand-written grammar
+      that only understands numbers and <code>+ - * / ( )</code> — try the
+      same payloads:
+      <code>2 + 3 * 4</code> (still works),
+      <code>INTERNAL_API_KEY</code> or <code>process.version</code>
+      (rejected).
+    </p>
+
+    <form class="try-it" id="calc-form" data-endpoint="/secure/calculate">
+      <label class="field-label visually-hidden" for="expression">Expression</label>
+      <input type="text" id="expression" name="expression" placeholder="Expression..." autocomplete="off" />
+      <button type="submit">Calculate</button>
+    </form>
+
+    <div class="result">
+      <pre id="result">(no result yet)</pre>
+    </div>
+  </div>
+
+  <!--
+    FIX for Vulnerability 2a — see src/routes/secure.js POST /calculate and
+    src/utils/safeMathEval.js. Same UI script as the vulnerable page
+    (public/shared/calculator.js); the fix is entirely server-side.
+  -->
+  <script src="/shared/calculator.js"></script>
+</body>
+</html>

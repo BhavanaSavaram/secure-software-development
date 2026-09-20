@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Code Injection &amp; Dynamic Evaluation — Demo</title>
+  <link rel="stylesheet" href="/shared/styles.css" />
+</head>
+<body>
+  <div class="card wide">
+    <h1>Code Injection &amp; Dynamic Evaluation</h1>
+    <p class="hint">
+      A small Express app demonstrating XSS and unsafe dynamic-evaluation
+      vulnerabilities, each with a matching fix. Every scenario below has a
+      <strong>Vulnerable</strong> and a <strong>Secure</strong> version of
+      the identical feature — try the same input against both to see the
+      difference.
+    </p>
+
+    <p class="section-label">Cross-site scripting</p>
+    <div class="scenario-list">
+      <div class="scenario-row">
+        <div class="scenario-info">
+          <div class="name">Reflected XSS (greeting form)</div>
+          <div class="desc">Also covers the non-&lt;script&gt;-tag / attribute-breakout variant — try both payloads in the same form.</div>
+        </div>
+        <div class="scenario-links">
+          <a class="link-btn vuln" href="/vulnerable/greet">Vulnerable</a>
+          <a class="link-btn secure" href="/secure/greet">Secure</a>
+        </div>
+      </div>
+      <div class="scenario-row">
+        <div class="scenario-info">
+          <div class="name">DOM-based XSS (search box)</div>
+          <div class="desc">Client-side innerHTML sink — no server round-trip needed for the injection itself.</div>
+        </div>
+        <div class="scenario-links">
+          <a class="link-btn vuln" href="/vulnerable/dom-xss.html">Vulnerable</a>
+          <a class="link-btn secure" href="/secure/dom-safe.html">Secure</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Dynamic code evaluation</p>
+    <div class="scenario-list">
+      <div class="scenario-row">
+        <div class="scenario-info">
+          <div class="name">setTimeout(string) snooze timer</div>
+          <div class="desc">A browser-only implicit eval() — no eval()/Function() call anywhere in the source.</div>
+        </div>
+        <div class="scenario-links">
+          <a class="link-btn vuln" href="/vulnerable/dynamic-timer.html">Vulnerable</a>
+          <a class="link-btn secure" href="/secure/dynamic-timer-safe.html">Secure</a>
+        </div>
+      </div>
+      <div class="scenario-row">
+        <div class="scenario-info">
+          <div class="name">eval() calculator</div>
+          <div class="desc">Type any expression — the vulnerable server runs it with eval(), the secure one only accepts arithmetic.</div>
+        </div>
+        <div class="scenario-links">
+          <a class="link-btn vuln" href="/vulnerable/calculator.html">Vulnerable</a>
+          <a class="link-btn secure" href="/secure/calculator.html">Secure</a>
+        </div>
+      </div>
+      <div class="scenario-row">
+        <div class="scenario-info">
+          <div class="name">Function() formatter</div>
+          <div class="desc">The vulnerable server compiles your formatter body with new Function(); the secure one only accepts a name from a fixed list.</div>
+        </div>
+        <div class="scenario-links">
+          <a class="link-btn vuln" href="/vulnerable/formatter.html">Vulnerable</a>
+          <a class="link-btn secure" href="/secure/formatter.html">Secure</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Everything at once</p>
+    <div class="scenario-list">
+      <div class="scenario-row">
+        <div class="scenario-info">
+          <div class="name">Scenario console</div>
+          <div class="desc">Live dashboard: real fetch() requests against every API scenario above, plus the CSP header comparison, all on one page.</div>
+        </div>
+        <div class="scenario-links">
+          <a class="link-btn neutral" href="/scenarios/console.html">Open console</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Scenario Console — Code Injection &amp; Dynamic Evaluation</title>
+<link rel="stylesheet" href="/shared/styles.css" />
+<style>
+  .card.wide { max-width: 920px; }
+  h2 { font-size: 15px; margin: 28px 0 4px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--text); }
+  p.sub { color: var(--text-muted); font-size: 14px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 12px; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  th, td { border-bottom: 1px solid var(--border); padding: 9px 12px; font-size: 13px; text-align: left; vertical-align: top; }
+  th { background: var(--code-bg); font-weight: 700; }
+  td.input { font-family: ui-monospace, Menlo, monospace; white-space: pre-wrap; max-width: 300px; font-size: 12px; }
+  td.output { font-family: ui-monospace, Menlo, monospace; white-space: pre-wrap; max-width: 340px; font-size: 12px; }
+  tr.vuln td.output { background: var(--vuln-bg); color: var(--vuln-text); }
+  tr.secure td.output { background: var(--secure-bg); color: var(--secure-text); }
+  span.badge.inline { margin: 0 4px; vertical-align: middle; }
+</style>
+</head>
+<body>
+  <div class="card wide">
+    <h1>Scenario Console</h1>
+    <p class="sub">
+      This page runs real <code>fetch()</code> calls against the live server
+      (no mocked data) for every input/output scenario referenced in the
+      project write-up, and renders the actual responses below.
+    </p>
+
+    <h2>Dynamic evaluation — <code>eval()</code> calculator (<span class="badge vuln inline">vulnerable</span> vs <span class="badge secure inline">secure</span>)</h2>
+    <table id="calc-table">
+      <thead><tr><th>Scenario</th><th>Request body</th><th>POST /vulnerable/calculate</th><th>POST /secure/calculate</th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>Dynamic evaluation — <code>new Function()</code> formatter (<span class="badge vuln inline">vulnerable</span> vs <span class="badge secure inline">secure</span>)</h2>
+    <table id="format-table">
+      <thead><tr><th>Scenario</th><th>Request body</th><th>POST /vulnerable/format</th><th>POST /secure/format</th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>Mitigation — Content-Security-Policy header</h2>
+    <table id="csp-table">
+      <thead><tr><th>Route</th><th>Content-Security-Policy response header</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="console.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secure Formatter (new Function() fixed)</title>
+  <link rel="stylesheet" href="/shared/styles.css" />
+</head>
+<body>
+  <div class="card">
+    <span class="badge secure">Secure</span>
+    <h1>Formatter</h1>
+    <p class="hint">
+      Same feature as <code>/vulnerable/formatter.html</code>, mitigated.
+      The server only accepts a <em>name</em> from a fixed list of
+      formatters — never code. Try:
+      <code>fixed2</code>, <code>percent</code>, <code>rounded</code>, or
+      <code>currencyUSD</code> (all work), or
+      <code>return typeof process;</code> (rejected).
+    </p>
+
+    <form class="field-row" id="format-form" data-endpoint="/secure/format" data-field="formatterKey">
+      <div class="field-group value-field">
+        <label class="field-label" for="value">Number</label>
+        <input type="text" id="value" name="value" placeholder="3.14159" autocomplete="off" />
+      </div>
+      <div class="field-group code-field">
+        <label class="field-label" for="code">Formatter key</label>
+        <input type="text" id="code" name="code" placeholder="fixed2" autocomplete="off" />
+      </div>
+      <button type="submit">Format</button>
+    </form>
+
+    <div class="result">
+      <pre id="result">(no result yet)</pre>
+    </div>
+  </div>
+
+  <!--
+    FIX for Vulnerability 2b — see src/routes/secure.js POST /format and
+    src/utils/formatters.js. Same UI script as the vulnerable page
+    (public/shared/formatter.js); the fix is entirely server-side.
+  -->
+  <script src="/shared/formatter.js"></script>
+</body>
+</html>

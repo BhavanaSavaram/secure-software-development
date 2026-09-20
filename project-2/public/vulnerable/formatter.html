@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vulnerable Formatter (new Function())</title>
+  <link rel="stylesheet" href="/shared/styles.css" />
+</head>
+<body>
+  <div class="card">
+    <span class="badge vuln">Vulnerable</span>
+    <h1>Formatter</h1>
+    <p class="hint">
+      Enter a number and a formatter body — the server compiles it with
+      <code>new Function("n", formatter)</code>, which runs any JavaScript
+      as the function body, not just formatting logic. Try:
+      <code>return n.toFixed(2);</code> (normal use) or
+      <code>return typeof process;</code> (reaches Node internals).
+    </p>
+
+    <form class="field-row" id="format-form" data-endpoint="/vulnerable/format" data-field="formatter">
+      <div class="field-group value-field">
+        <label class="field-label" for="value">Number</label>
+        <input type="text" id="value" name="value" placeholder="3.14159" autocomplete="off" />
+      </div>
+      <div class="field-group code-field">
+        <label class="field-label" for="code">Formatter body</label>
+        <input type="text" id="code" name="code" placeholder="return n.toFixed(2);" autocomplete="off" />
+      </div>
+      <button type="submit">Format</button>
+    </form>
+
+    <div class="result">
+      <pre id="result">(no result yet)</pre>
+    </div>
+  </div>
+
+  <!--
+    VULNERABILITY 2b — see src/routes/vulnerable.js POST /format and
+    docs/VULNERABILITIES.md §2b. This page is just a form + fetch() wrapper
+    (public/shared/formatter.js) around that API; the vulnerability itself
+    lives entirely server-side, in the new Function("n", formatter) call.
+  -->
+  <script src="/shared/formatter.js"></script>
+</body>
+</html>

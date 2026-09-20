@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secure Snooze Timer (setTimeout fixed)</title>
+  <link rel="stylesheet" href="/shared/styles.css" />
+</head>
+<body>
+  <div class="card">
+    <span class="badge secure">Secure</span>
+    <h1>Snooze reminder</h1>
+    <p class="hint">
+      Same feature as <code>/vulnerable/dynamic-timer.html</code>, mitigated.
+      Same payload, now inert:
+      <code>document.querySelector('.result').insertAdjacentHTML('beforeend','&lt;p&gt;&lt;strong&gt;STATUS: Malicious script executed.&lt;/strong&gt;&lt;/p&gt;')</code>
+    </p>
+
+    <form class="try-it" method="GET" action="dynamic-timer-safe.html">
+      <label class="field-label visually-hidden" for="run">Reminder message</label>
+      <input type="text" id="run" name="run" placeholder="Message..." autocomplete="off" />
+      <button type="submit">Set reminder</button>
+    </form>
+
+    <div class="result" id="results">
+      <p id="status">(waiting for timer...)</p>
+    </div>
+  </div>
+
+  <!--
+    FIX: setTimeout is always called with a real function reference, never
+    a string. Whatever the caller put in `run` is only ever used as DATA
+    (displayed as text), never compiled as code. See dynamic-timer-safe.js
+    and docs/MITIGATIONS.md.
+  -->
+  <script src="dynamic-timer-safe.js"></script>
+</body>
+</html>

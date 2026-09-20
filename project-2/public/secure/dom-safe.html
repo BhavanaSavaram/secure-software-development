@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secure Search (DOM-based XSS fixed)</title>
+  <link rel="stylesheet" href="/shared/styles.css" />
+</head>
+<body>
+  <div class="card">
+    <span class="badge secure">Secure</span>
+    <h1>Search</h1>
+    <p class="hint">
+      Same feature as <code>/vulnerable/dom-xss.html</code>, mitigated. Try
+      the same payload — it now renders as inert text:
+      <code>&lt;img src=x onerror="document.querySelector('.result').insertAdjacentHTML('beforeend','&lt;p&gt;&lt;strong&gt;STATUS: Malicious script executed.&lt;/strong&gt;&lt;/p&gt;')"&gt;</code>
+    </p>
+
+    <form class="try-it" method="GET" action="dom-safe.html">
+      <label class="field-label visually-hidden" for="q">Search term</label>
+      <input type="text" id="q" name="q" placeholder="Search term..." autocomplete="off" />
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="result" id="results"></div>
+  </div>
+
+  <!--
+    Two layers of defense, see dom-safe.js and docs/MITIGATIONS.md:
+      1. textContent instead of innerHTML for the plain-text echo — the
+         browser never parses the value as markup at all.
+      2. DOMPurify.sanitize() for the one place we DO want to render HTML
+         (bolding the matched term), so a legitimate rich-text feature
+         doesn't have to become a plain-text one to be safe.
+    Both files are same-origin, so they satisfy this page's CSP
+    (script-src 'self') without needing 'unsafe-inline' or a CDN.
+  -->
+  <script src="vendor/purify.min.js"></script>
+  <script src="dom-safe.js"></script>
+</body>
+</html>

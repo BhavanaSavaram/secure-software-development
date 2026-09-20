@@ -1,0 +1,328 @@
+/* Shared visual design for every demo page (vulnerable and secure alike).
+   Purely presentational — none of this affects the vulnerability or its
+   fix, which live entirely in how each route handles the "name"/"q"/"run"
+   value. Served from /shared, same-origin, so it satisfies the secure
+   pages' style-src 'self' CSP with no changes needed there. */
+
+:root {
+  --page-bg: #f3f4f6;
+  --card-bg: #ffffff;
+  --border: #e2e4e9;
+  --text: #1a1d23;
+  --text-muted: #6b7280;
+  --accent: #2b3446;
+  --accent-hover: #1a2130;
+  --code-bg: #f6f7f9;
+  --vuln-bg: #fde2e1;
+  --vuln-text: #b3261e;
+  --secure-bg: #e3f5e9;
+  --secure-text: #1e7d3c;
+  --status-border: #d8dbe2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 40px 20px;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.55;
+}
+
+.card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 32px 32px;
+  box-shadow: 0 1px 3px rgba(16, 20, 30, 0.06);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.badge.vuln {
+  background: var(--vuln-bg);
+  color: var(--vuln-text);
+}
+
+.badge.secure {
+  background: var(--secure-bg);
+  color: var(--secure-text);
+}
+
+h1 {
+  font-size: 22px;
+  margin: 0 0 6px;
+}
+
+p {
+  margin: 0 0 14px;
+  color: var(--text);
+}
+
+p.hint {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+code {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  word-break: break-word;
+}
+
+form.try-it {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 20px;
+}
+
+form.try-it input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+form.try-it input[type="text"]:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+form.try-it button {
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+form.try-it button:hover {
+  background: var(--accent-hover);
+}
+
+/* An external class rather than an inline style="" attribute — the secure
+   pages' CSP (style-src 'self', no unsafe-inline) blocks inline style
+   attributes, which would otherwise make this label visible only on the
+   secure side and break the vulnerable/secure visual comparison. */
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+label.field-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.result-heading {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.result {
+  border: 1px solid var(--status-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 6px;
+  background: #fafbfc;
+}
+
+.result p:last-child {
+  margin-bottom: 0;
+}
+
+/* Two-field forms (a value + a code/key field), used by the formatter
+   pages. Kept separate from form.try-it (single-field) to avoid
+   entangling the two layouts. */
+.field-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin: 16px 0 20px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-group.value-field {
+  flex: 0 0 140px;
+}
+
+.field-group.code-field {
+  flex: 1;
+  min-width: 220px;
+}
+
+.field-group input[type="text"] {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.field-group input[type="text"]:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.field-row button {
+  flex: 0 0 auto;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.field-row button:hover {
+  background: var(--accent-hover);
+}
+
+.result pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+
+#status,
+.status-line {
+  font-weight: 700;
+}
+
+/* Homepage: a wider card listing every scenario with a link to its
+   vulnerable and secure page. */
+.card.wide {
+  max-width: 760px;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 28px 0 4px;
+}
+
+.section-label:first-of-type {
+  margin-top: 6px;
+}
+
+.scenario-list {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.scenario-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+}
+
+.scenario-row:last-child {
+  border-bottom: none;
+}
+
+.scenario-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.scenario-info .name {
+  font-weight: 700;
+  font-size: 14.5px;
+}
+
+.scenario-info .desc {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.scenario-links {
+  display: flex;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.link-btn {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.link-btn.vuln {
+  background: var(--vuln-bg);
+  color: var(--vuln-text);
+}
+
+.link-btn.vuln:hover {
+  background: #fbcac8;
+}
+
+.link-btn.secure {
+  background: var(--secure-bg);
+  color: var(--secure-text);
+}
+
+.link-btn.secure:hover {
+  background: #c9ecd7;
+}
+
+.link-btn.neutral {
+  background: var(--code-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.link-btn.neutral:hover {
+  background: #eceef1;
+}

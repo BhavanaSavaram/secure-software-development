@@ -1,0 +1,27 @@
+{
+  "name": "secure-webapp-project",
+  "version": "1.0.0",
+  "description": "Secure Software Development coursework project: JavaScript code injection (XSS) and dynamic evaluation (eval) vulnerabilities, with tested mitigations and a Content-Security-Policy.",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js",
+    "postinstall": "node scripts/copy-dompurify.js",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dompurify": "^3.1.6",
+    "express": "^4.21.0",
+    "helmet": "^7.1.0",
+    "jsdom": "^24.1.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "playwright": "^1.63.0",
+    "supertest": "^7.0.0"
+  }
+}
